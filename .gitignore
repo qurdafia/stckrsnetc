@@ -196,4 +196,4 @@ FakesAssemblies/
 *.opt
 
 # Project Mods
-**/src/secrets.py
+**/secrets.py
