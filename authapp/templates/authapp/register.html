@@ -6,10 +6,13 @@
 {% block content %}
 
 {% if form.errors %}
-    
+
 {% endif %}
-    
+<div class="sticker-image">
+  <img src="../media/ivan-bottigelli-sticker-bg.jpg" />
+</div>
 <form action="" method="post" class="form container">
+    <h1>Register</h1>
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}

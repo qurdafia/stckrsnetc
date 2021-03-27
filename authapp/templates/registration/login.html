@@ -4,7 +4,10 @@
 
 {% block content %}
 <div class="">
-    <div style="text-align: center;">
+    <div class="sticker-image">
+      <img src="../media/ivan-bottigelli-sticker-bg.jpg" />
+    </div>
+    <div style="text-align: left;">
         <h1>Log-in</h1>
         {% if form.errors %}
         <p>
@@ -12,7 +15,7 @@
             Please try again.
         </p>
         {% else %}
-        <p>Please, use the following form to log-in</p>
+        <p>To order, please use the following form to log-in or click <a href="/register">here</a> to register</p>
         {% endif %}
     </div>
 

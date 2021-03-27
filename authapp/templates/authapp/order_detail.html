@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="order-detail">
+  <p>&nbsp;</p>
+  <h1>Order Detail</h1>
+  <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">BACK TO ORDERS >></a></span>
+  <hr />
+  <div class="order-detail-box">
+    <p>
+      Order ID: <strong>{{ order_detail.id }}</strong><br />
+      Customer Name: {{ order_detail.customer.first_name }} {{ order_detail.customer.last_name }}<br />
+      Address: {{ order_detail.address }}, {{ order_detail.country }}<br />
+      Product: <span style="text-transform: capitalize;">{{ order_detail.material }}</span><br />
+      Size: {{ order_detail.width }} x {{ order_detail.height }} square inches<br />
+      Quantity: {{ order_detail.quantiy }} pcs<br />
+      Total Price: <strong>{{ order_detail.total_price }}</strong><br />
+      <span style="font-size: 10px;">
+        ORDER DATE: {{ order_detail.order_date}}<br>
+        STATUS:
+        {% if order_detail.is_paid is False %}
+          <span style="color: red; font-weight: bolder;">NOT PAID</span>
+        {% else %}
+          <span style="color: green; font-weight: bolder;">PAID</span>
+        {% endif %}
+      </span>
+    </p>
+  </div>
+  <hr />
+</div>
+{% endblock %}

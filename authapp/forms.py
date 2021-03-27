@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 # from .models import Profile
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
-from .models import UserRegistrationModel
+from .models import UserRegistrationModel, OrderModel
 from django.contrib.auth.forms import PasswordResetForm
 
 
@@ -28,3 +28,18 @@ class UserEditForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email')
 
 
+#OrderModel form
+
+class OrderModelForm(forms.ModelForm):
+    class Meta:
+        model = OrderModel
+        fields = ('country', 'address', 'mobile', 'width', 'height', 'quantiy', 'file')
+        labels = {
+            'country': 'Enter Country',
+            'address': 'Enter Shipping Address',
+            'mobile': 'Enter Mobile Number',
+            'width': 'Sticker Width (in)',
+            'height': 'Sticker Height (in)',
+            'quantiy': 'Quantity (no. of pcs)',
+            'file': 'Upload Your File (pdf)',
+        }

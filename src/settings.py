@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'widget_tweaks',
+    'django_countries',
+    'phone_field',
     'authapp',
     'bootstrap4'
 ]
@@ -81,7 +84,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -121,9 +124,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),) # new
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # new
+# STATICFILES_DIRS = [STATIC_DIR, ]
 
 
 LOGIN_REDIRECT_URL = 'authapp:dashboard'
@@ -134,3 +138,12 @@ LOGOUT_URL = 'logout'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 
+# Images file
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Countries field
+COUNTRIES_ONLY = ['PH',]
+
+#Login url
+LOGIN_URL = "/"

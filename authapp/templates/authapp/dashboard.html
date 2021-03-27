@@ -1,9 +1,70 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock title %}
 {% block content %}
-<h1>{{welcome}}</h1>
-<br>
+<!-- <h1>{{welcome}}</h1> -->
+<div class="sticker-image">
+  <img src="../media/ivan-bottigelli-sticker-bg.jpg" />
+</div>
+{% if request.user.is_superuser %}
+    <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">GO TO ORDERS >></a></span>
+{% else %}
+{% endif %}
+<h2>Good day, {{ user.first_name }}!</h2>
+<h4>Your Profile</h4>
+<p>
+  Name: {{ user.first_name }} {{ user.last_name }}<br>
+  Username: {{ user }}<br>
+  Email: {{ user.email }}
+</p>
+<a href="{% url 'authapp:order' %}" class="btn btn-primary">Order Stickers</a>
 <a href="{% url 'authapp:edit' %}" class="btn btn-primary">Edit Your Profile</a> or
-<a href="{% url 'authapp:password_change' %}" class="btn btn-warning">Change your password</a>
-<hr>
+<a href="{% url 'authapp:password_change' %}" class="btn btn-warning">Change Your Password</a>
+<p style="clear: left;">&nbsp;</p>
+<!-- My Order -->
+<h2>My Orders</h2>
+{% for order in my_orders %}
+  <div class="orders-box">
+    <p>
+      Order ID: <strong>{{ order.id }}</strong><br />
+      User: {{ order.customer|truncatechars:10 }}<br />
+      Total Price: <strong>{{ order.total_price }}</strong><br />
+      <span style="font-size: 10px;">
+        {{ order.order_date}}<br>
+        {% if order.is_paid is False %}
+          <span style="color: red; font-weight: bolder;">NOT PAID</span>
+        {% else %}
+          <span style="color: green; font-weight: bolder;">PAID</span>
+        {% endif %}
+      </span>
+    </p>
+  </div>
+{% endfor %}
+{% if my_orders.has_other_pages %}
+  <div style="clear: left;">
+    <ul class="pagination">
+      {% if my_orders.has_previous %}
+        <li><a href="?page={{ my_orders.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in my_orders.paginator.page_range %}
+        {% if my_orders.number == i %}
+          <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if my_orders.has_next %}
+        <li><a href="?page={{ my_orders.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}
+
+<!-- End My Orders -->
+<hr style="clear: left;">
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 {% endblock content %}

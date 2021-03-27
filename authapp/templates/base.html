@@ -14,11 +14,99 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
         integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-    
+
         <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <title>App {% block title %}{% endblock title %}</title>
+    <style>
+      nav {
+        max-width: 1140px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .order-detail-box {
+        background-color: rgb(146 117 9 / 12%);
+        padding: 10px 20px;
+        margin-bottom: 20px;
+      }
+      .orders, .order-detail {
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .orders-box {
+        background-color: rgb(146 117 9 / 12%);
+        padding: 10px 20px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 240px;
+        height: 150px;
+        display: inline-block;
+        float: left;
+        vertical-align: top;
+        box-sizing: border-box;
+      }
+      @media (max-width: 680px) {
+        .orders-box {
+          max-width:inherit;
+          width: 100%;
+          display: inline-block;
+          float: none;
+        }
+      }
+      .bg-light {
+        background-color: #eeeeee !important;
+      }
+      .sticker-image {
+        margin-bottom: 20px;
+        height: 250px;
+        overflow: hidden;
+        background: #0b3835;
+      }
+      .sticker-image img {
+        width: 1110px;
+        mix-blend-mode: exclusion;
+      }
+      .login__left {
+        /*margin-left: 700px;*/
+      }
+      @media (min-width: 992px) {
+        .navbar-expand-lg .navbar-collapse {
+          display: block !important;
+          text-align: right;
+        }
+      }
+      @media (max-width: 992px) {
+        .login__left {
+          text-align: right !important;
+          margin-left: 0;
+        }
+      }
+      .btn-primary {
+        background-color: #254746;
+        border-color: #254746;
+      }
+      .btn-primary:hover {
+        background-color: #3f7776;
+        border-color: #3f7776;
+      }
+      a {
+        color: #dd34e4;
+      }
+      /* Form */
+      .order-form {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Pagingation */
+      .pagination {
+        letter-spacing: 2px;
+      }
+    </style>
 </head>
 
 <body>
@@ -39,7 +127,18 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
     </script>
 
-    
-</body>
 
+</body>
+<script>
+function updateVal() {
+  let width = document.getElementById('id_width').value;
+  let height = document.getElementById('id_height').value;
+  let quantiy = document.getElementById('id_quantiy').value;
+  let area = width * height / 144;
+  let total = area * 120 * quantiy + 150;
+  console.log(total);
+  document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+}
+updateVal();
+</script>
 </html>
