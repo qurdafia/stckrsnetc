@@ -10,24 +10,24 @@
 {% else %}
 {% endif %}
 <h2>Good day, {{ user.first_name }}!</h2>
-<h4>Your Profile</h4>
+<h4>Account</h4>
 <p>
   Name: {{ user.first_name }} {{ user.last_name }}<br>
   Username: {{ user }}<br>
   Email: {{ user.email }}
 </p>
-<a href="{% url 'authapp:order' %}" class="btn btn-primary">Order Stickers</a>
-<a href="{% url 'authapp:edit' %}" class="btn btn-primary">Edit Your Profile</a> or
-<a href="{% url 'authapp:password_change' %}" class="btn btn-warning">Change Your Password</a>
+<a href="{% url 'authapp:order' %}" class="btn btn-primary" id="order-sticker">Order Stickers</a>
+<a href="{% url 'authapp:edit' %}" class="btn btn-primary">Edit Profile</a>
+<a href="{% url 'authapp:password_change' %}" class="btn btn-warning">Change Password</a>
 <p style="clear: left;">&nbsp;</p>
 <!-- My Order -->
-<h2>My Orders</h2>
+<h2>Order History</h2>
+<hr />
 {% for order in my_orders %}
   <div class="orders-box">
     <p>
       Order ID: <strong>{{ order.id }}</strong><br />
-      User: {{ order.customer|truncatechars:10 }}<br />
-      Total Price: <strong>{{ order.total_price }}</strong><br />
+      PHP <strong>{{ order.total_price }}</strong><br />
       <span style="font-size: 10px;">
         {{ order.order_date}}<br>
         {% if order.is_paid is False %}
@@ -35,10 +35,12 @@
         {% else %}
           <span style="color: green; font-weight: bolder;">PAID</span>
         {% endif %}
-      </span>
+      </span><br />
+      <span style="font-size: 10px;"><a href="{% url 'authapp:my_order_detail' order.id %}">DETAILS >></a></span>
     </p>
   </div>
 {% endfor %}
+<hr style="clear: left;" />
 {% if my_orders.has_other_pages %}
   <div style="clear: left;">
     <ul class="pagination">
@@ -64,7 +66,7 @@
 {% endif %}
 
 <!-- End My Orders -->
-<hr style="clear: left;">
+
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 {% endblock content %}

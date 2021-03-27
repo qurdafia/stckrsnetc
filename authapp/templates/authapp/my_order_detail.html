@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="order-detail">
+  <p>&nbsp;</p>
+  <h1>Order Detail</h1>
+  <span style="font-size: 10px;"><a href="{% url 'authapp:dashboard' %}"><< BACK TO MY ORDERS</a></span>
+  <hr />
+  <div class="order-detail-box">
+    <p>
+      Order ID: <strong>{{ my_order_detail.id }}</strong><br />
+      Customer Name: {{ my_order_detail.customer.first_name }} {{ my_order_detail.customer.last_name }}<br />
+      Address: {{ my_order_detail.address }}, {{ my_order_detail.country }}<br />
+      Product: <span style="text-transform: capitalize;">{{ my_order_detail.material }}</span><br />
+      Size: {{ my_order_detail.width }} x {{ my_order_detail.height }} square inches<br />
+      Quantity: {{ my_order_detail.quantiy }} pc(s)
+    </p>
+    <span>
+      {% if my_order_detail.is_paid is False %}
+        <span style="background-color: red; color: #ffffff; padding: 10px 20px;">PHP <strong>{{ my_order_detail.total_price }}</strong></span><br /><br />
+        <span style="font-size: 10px; font-weight: bolder;"><strong>{{ my_order_detail.order_date}} | </strong></span>
+        <span style="font-size: 10px; color: red; font-weight: bolder;">STATUS: NOT PAID</span>
+      {% else %}
+        <span style="background-color: green; color: #ffffff; padding: 10px 20px;">PHP <strong>{{ my_order_detail.total_price }}</strong></span><br /><br />
+        <span style="font-size: 10px; font-weight: bolder;"><strong>{{ my_order_detail.order_date}} | </strong></span>
+        <span style="font-size: 10px; color: green; font-weight: bolder;">STATUS: PAID</span>
+      {% endif %}
+    </span>
+  </div>
+  <hr />
+</div>
+{% endblock %}

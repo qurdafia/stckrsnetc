@@ -1,5 +1,5 @@
 from django.http import request
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistration, UserEditForm, OrderModelForm
 from decimal import *
@@ -16,7 +16,7 @@ def dashboard(request):
     my_orders = OrderModel.objects.filter(customer=current_user).order_by('-order_date')
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(my_orders, 3)
+    paginator = Paginator(my_orders, 4)
 
     try:
         my_orders = paginator.page(page)
@@ -111,3 +111,12 @@ def order_detail(request, id):
     context = { 'order_detail': order_detail }
 
     return render(request, "authapp/order_detail.html", context)
+
+
+def my_order_detail(request, id):
+    if request.user:
+        # my_order_detail = OrderModel.objects.get(id=id, customer=request.user)
+        my_order_detail = get_object_or_404(OrderModel, id=id, customer=request.user)
+        context = { 'my_order_detail': my_order_detail }
+
+        return render(request, "authapp/my_order_detail.html", context)

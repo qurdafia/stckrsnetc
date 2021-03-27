@@ -8,7 +8,7 @@
     <p>
       Order ID: <strong>{{ order.id }}</strong><br />
       User: {{ order.customer|truncatechars:10 }}<br />
-      Total Price: <strong>{{ order.total_price }}</strong><br />
+      PHP <strong>{{ order.total_price }}</strong><br />
       <span style="font-size: 10px;">
         {% if order.is_paid is False %}
           <span style="color: red; font-weight: bolder;">NOT PAID</span>

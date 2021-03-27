@@ -12,18 +12,19 @@
       Address: {{ order_detail.address }}, {{ order_detail.country }}<br />
       Product: <span style="text-transform: capitalize;">{{ order_detail.material }}</span><br />
       Size: {{ order_detail.width }} x {{ order_detail.height }} square inches<br />
-      Quantity: {{ order_detail.quantiy }} pcs<br />
-      Total Price: <strong>{{ order_detail.total_price }}</strong><br />
-      <span style="font-size: 10px;">
-        ORDER DATE: {{ order_detail.order_date}}<br>
-        STATUS:
-        {% if order_detail.is_paid is False %}
-          <span style="color: red; font-weight: bolder;">NOT PAID</span>
-        {% else %}
-          <span style="color: green; font-weight: bolder;">PAID</span>
-        {% endif %}
-      </span>
+      Quantity: {{ order_detail.quantiy }} pc(s)
     </p>
+    <span>
+      {% if order_detail.is_paid is False %}
+        <span style="background-color: red; color: #ffffff; padding: 10px 20px;">PHP <strong>{{ order_detail.total_price }}</strong></span><br /><br />
+        <span style="font-size: 10px; font-weight: bolder;"><strong>{{ order_detail.order_date}} | </strong></span>
+        <span style="font-size: 10px; color: red; font-weight: bolder;">STATUS: NOT PAID</span>
+      {% else %}
+        <span style="background-color: green; color: #ffffff; padding: 10px 20px;">PHP <strong>{{ order_detail.total_price }}</strong></span><br /><br />
+        <span style="font-size: 10px; font-weight: bolder;"><strong>{{ order_detail.order_date}} | </strong></span>
+        <span style="font-size: 10px; color: green; font-weight: bolder;">STATUS: PAID</span>
+      {% endif %}
+    </span>
   </div>
   <hr />
 </div>
