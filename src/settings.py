@@ -91,16 +91,16 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # DB local settings
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': str(BASE_DIR / 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
+    }
+}
 
 # DB Heroku settings
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
 
 
 # Password validation
