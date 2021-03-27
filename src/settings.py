@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from environ import Env
 import os
-import dj_database_url
 
 # Environment Variables
 env = Env()
@@ -21,9 +20,10 @@ env.read_env(env_file='src/.env')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join('templates', BASE_DIR)
-STATIC_DIR = os.path.join('static', BASE_DIR)
+BASEPATH = Path(__file__).resolve().parent.parent
+
+TEMPLATE_DIR = os.path.join('templates', BASEPATH)
+STATIC_DIR = os.path.join('static', BASEPATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -35,7 +35,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'stckrsnetc.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -52,11 +52,10 @@ INSTALLED_APPS = [
     'django_countries',
     'phone_field',
     'authapp',
-    'bootstrap4'
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -94,7 +93,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'NAME': str(BASEPATH / 'db.sqlite3'),
     }
 }
 
@@ -140,33 +139,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # Localhost setting
+STATIC_ROOT = os.path.join(STATIC_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
-
-# Heroku setting
-# PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-# STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
-# STATIC_URL = '/static/'
-
-# Extra lookup directories for collectstatic to find static files
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
-
-#  Add configuration for static files storage using whitenoise
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-
-
+STATICFILES_DIRS = [os.path.join(BASEPATH, "static")]
+# STATIC_ROOT = os.path.join(BASEPATH, 'static')
 
 LOGIN_REDIRECT_URL = 'authapp:dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-
-
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 
 # Email Backend
 EMAIL_BACKEND = env('EMAIL_BACKEND')
@@ -178,7 +158,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 # Images file
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(str(BASEPATH), 'media')
 
 # Countries field
 COUNTRIES_ONLY = ['PH',]
