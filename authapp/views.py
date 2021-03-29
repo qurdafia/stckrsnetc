@@ -92,7 +92,7 @@ def order_list(request):
 
     query = request.GET.get('q', '')
     # orders = OrderModel.objects.order_by('-order_date')
-    orders = OrderModel.objects.filter(Q(id__icontains=query)).order_by('-order_date')
+    orders = OrderModel.objects.filter(Q(id__icontains=query)).distinct().order_by('-order_date')
 
     page = request.GET.get('page', 1)
     paginator = Paginator(orders, 9)
