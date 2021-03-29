@@ -58,4 +58,35 @@
   </form>
 
   <p>&nbsp;</p>
+  <!-- MODAL -->
+  <div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Hi, {{ user.first_name }}!</h4>
+          </div>
+          <div class="modal-body">
+            <p>We are very happy that you're here.</p>
+            <p>For your order request, this will be done via LBC Cash-on-Delivery option, and we are confident and fully trust on you.</p>
+            <p>Once you post your order, this will be automatically processed for fulfillment. Please carefully fill in your details.</p>
+            <p>We are recommending that you upload a high resolution image for your file.</p>
+            <p>Please contact us via <a href="https://www.facebook.com/unrestphshop">Facebook</a> if you have any other queries.</p>
+            <p>Thank you.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END MODAL -->
+
+  </div>
+
 {% endblock %}

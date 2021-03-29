@@ -9,7 +9,11 @@
     <p>Order modification should be done cautiously. Thanks.</p>
     <p>
       Order ID: <strong> {{ order.id }}</strong><br />
-      Customer: <strong>{{ order.customer.first_name }} {{ order.customer.last_name }}</strong>
+      Customer: <strong>{{ order.customer.first_name }} {{ order.customer.last_name }}</strong><br />
+      Address: {{ order.address }}, {{ order.location }}<br />
+      Product: <span style="text-transform: capitalize;">{{ order.material }}</span><br />
+      Size: {{ order.width }} x {{ order.height }} square inches<br />
+      Quantity: {{ order.quantiy }} pc(s)
     </p>
     {% csrf_token %}
     {% for hidden_field in form.hidden_fields %}
@@ -51,7 +55,7 @@
     <div class="total_box">
       <p>
         <br>
-        Total Price: <strong>PHP <span id="id_new_total"></span></strong><br>
+        Total Price: <strong>PHP <span id="id_new_total">{{ order.total_price }}</span></strong><br>
         <span style="font-size: 10px; font-style: italic;">
           Note: Price per square foot is PHP 120.00 and shipping fee is PHP 150.00. This will be shipped via Cash-on-Delivery option with LBC.
         </span>

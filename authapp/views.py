@@ -130,7 +130,7 @@ def order_edit(request, id):
             order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
             order.save()
             form = OrderModelFormEdit()
-            return redirect('/dashboard')
+            return redirect('/orders')
     else:
         form = OrderModelFormEdit(instance=order)
     return render(request, 'authapp/order_edit_form.html', {
