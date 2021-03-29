@@ -1,10 +1,11 @@
 from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistration, UserEditForm, OrderModelForm
-from decimal import *
+from .forms import UserRegistration, UserEditForm, OrderModelForm, OrderModelFormEdit
+from decimal import Decimal
 from fractions import *
 from .models import OrderModel
+from django.db.models import Q
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -72,8 +73,8 @@ def order(request):
         if form.is_valid():
             order = form.save(commit=True)
             area = order.width * order.height
-            area_feet = area/144
-            order.total_price = round(area_feet * order.quantiy * 120 + 150, 2)
+            area_feet = Decimal(area)/Decimal(144)
+            order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
             print(order.total_price)
             order.customer = request.user
             order.save()
@@ -88,7 +89,10 @@ def order(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def order_list(request):
-    orders = OrderModel.objects.order_by('-order_date')
+
+    query = request.GET.get('q', '')
+    # orders = OrderModel.objects.order_by('-order_date')
+    orders = OrderModel.objects.filter(Q(id__icontains=query)).order_by('-order_date')
 
     page = request.GET.get('page', 1)
     paginator = Paginator(orders, 9)
@@ -111,6 +115,29 @@ def order_detail(request, id):
     context = { 'order_detail': order_detail }
 
     return render(request, "authapp/order_detail.html", context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def order_edit(request, id):
+    order = OrderModel.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = OrderModelFormEdit(request.POST, instance=order)
+        if form.is_valid():
+            order = form.save(commit=True)
+            area = order.width * order.height
+            area_feet = Decimal(area)/Decimal(144)
+            order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
+            order.save()
+            form = OrderModelFormEdit()
+            return redirect('/dashboard')
+    else:
+        form = OrderModelFormEdit(instance=order)
+    return render(request, 'authapp/order_edit_form.html', {
+        'form': form,
+        'order': order,
+    })
+
 
 
 def my_order_detail(request, id):

@@ -1,0 +1,24 @@
+/* Modifications */
+.total_box {
+  background-color: #fbe29b;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.bg-light {
+  background-color: #eeeeee !important;
+}
+.sticker-image {
+  margin-bottom: 20px;
+  height: 200px;
+  overflow: hidden;
+  background: #0b3835;
+}
+.sticker-image img {
+  width: 1110px;
+  mix-blend-mode: exclusion;
+}
+nav {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}

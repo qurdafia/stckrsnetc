@@ -18,12 +18,19 @@ import os
 env = Env()
 env.read_env(env_file='src/.env')
 
+BASEPATH = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join('templates', BASEPATH)
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT  = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASEPATH = Path(__file__).resolve().parent.parent
-
-TEMPLATE_DIR = os.path.join('templates', BASEPATH)
-STATIC_DIR = os.path.join('static', BASEPATH)
+# Old static setting
+# BASEPATH = Path(__file__).resolve().parent.parent
+# TEMPLATE_DIR = os.path.join('templates', BASEPATH)
+# STATIC_DIR = os.path.join('static', BASEPATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -35,7 +42,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -48,8 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 'django-storages[google]',
+    'storages',
     'widget_tweaks',
-    'django_countries',
     'phone_field',
     'authapp',
     'bootstrap4',
@@ -99,6 +107,10 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 
 # For Google App ENGINE
+import pymysql  # noqa: 402
+pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
+pymysql.install_as_MySQLdb()
+
 
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
@@ -108,7 +120,7 @@ if os.getenv('GAE_APPLICATION', None):
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/master-magnet-309002:asia-southeast1:stckrsnetcdb',
             'USER': 'mormash',
-            'PASSWORD': '22MatetMatet22',
+            'PASSWORD': '23Responder23',
             'NAME': 'stckrsnetcdb',
         }
     }
@@ -121,10 +133,23 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': str(BASEPATH / 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'stckrsnetcdb',
+            'USER': 'mormash',
+            'PASSWORD': '23Responder23',
         }
     }
+
+
+# Local DB Sqlite3
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(BASEPATH / 'db.sqlite3'),
+#     }
+# }
 
 
 
@@ -165,10 +190,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # Localhost setting
-STATIC_ROOT = os.path.join(STATIC_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASEPATH, "static")]
-# STATIC_ROOT = os.path.join(BASEPATH, 'static')
+# Old static settings 2
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASEPATH, 'static')]
+# STATIC_ROOT = os.path.join(BASEPATH, 'staticfiles')
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
 
 LOGIN_REDIRECT_URL = 'authapp:dashboard'
 LOGIN_URL = 'login'
@@ -186,8 +216,15 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(str(BASEPATH), 'media')
 
-# Countries field
-COUNTRIES_ONLY = ['PH',]
-
 #Login url
 LOGIN_URL = "/"
+
+#Google Cloud storages
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'master-magnet-309002.appspot.com'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+#Google credentials
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="src/master-magnet-309002-08264ddb8fea.json"

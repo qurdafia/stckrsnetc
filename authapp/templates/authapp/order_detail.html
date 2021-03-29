@@ -3,13 +3,14 @@
 <div class="order-detail">
   <p>&nbsp;</p>
   <h1>Order Detail</h1>
-  <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">BACK TO ORDERS >></a></span>
+  <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}"><< BACK TO ORDERS</a></span>
   <hr />
   <div class="order-detail-box">
     <p>
+      <span style="font-size: 10px; font-weight: bolder;"><a href="{% url 'authapp:order_edit' order_detail.id %}">EDIT</a></span><br />
       Order ID: <strong>{{ order_detail.id }}</strong><br />
       Customer Name: {{ order_detail.customer.first_name }} {{ order_detail.customer.last_name }}<br />
-      Address: {{ order_detail.address }}, {{ order_detail.country }}<br />
+      Address: {{ order_detail.address }}, {{ order_detail.location }}<br />
       Product: <span style="text-transform: capitalize;">{{ order_detail.material }}</span><br />
       Size: {{ order_detail.width }} x {{ order_detail.height }} square inches<br />
       Quantity: {{ order_detail.quantiy }} pc(s)

@@ -3,7 +3,16 @@
 <p>&nbsp;</p>
 <div class="orders">
 <h1>Orders</h1>
+<div class="form-group">
+  <form action="{% url 'authapp:order_list' %}" method="get">
+    <input class="form-control" id="profile-search" name="q" type="text" placeholder="ORDER ID..."><br />
+    <input class="btn btn-primary" id="order-sticker" type="submit" name="button" value="Search" />
+  </form>
+</div>
+<br />
+
 {% for order in orders %}
+
   <div class="orders-box">
     <p>
       Order ID: <strong>{{ order.id }}</strong><br />
