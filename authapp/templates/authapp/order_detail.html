@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Order Detail{% endblock %}
 {% block content %}
 <div class="order-detail">
   <p>&nbsp;</p>
@@ -10,6 +11,7 @@
       <span style="font-size: 10px; font-weight: bolder;"><a href="{% url 'authapp:order_edit' order_detail.id %}">EDIT</a></span><br />
       Order ID: <strong>{{ order_detail.id }}</strong><br />
       Customer Name: {{ order_detail.customer.first_name }} {{ order_detail.customer.last_name }}<br />
+      Mobile Number: {{ order_detail.mobile }}<br />
       Address: {{ order_detail.address }}, {{ order_detail.location }}<br />
       Product: <span style="text-transform: capitalize;">{{ order_detail.material }}</span><br />
       Size: {{ order_detail.width }} x {{ order_detail.height }} square inches<br />

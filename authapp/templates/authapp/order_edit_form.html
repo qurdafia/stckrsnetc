@@ -10,7 +10,7 @@
     <p>
       Order ID: <strong> {{ order.id }}</strong><br />
       Customer: <strong>{{ order.customer.first_name }} {{ order.customer.last_name }}</strong><br />
-      Mobile Number: <strong>+{{ order.mobile }}</strong><br />
+      Mobile Number: <strong>{{ order.mobile }}</strong><br />
       Address: {{ order.address }}, {{ order.location }}<br />
       Product: <span style="text-transform: capitalize;">{{ order.material }}</span><br />
       Size: {{ order.width }} x {{ order.height }} square inches<br />

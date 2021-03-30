@@ -59,11 +59,10 @@ class OrderModelForm(forms.ModelForm):
 
     class Meta:
         model = OrderModel
-        fields = ('location', 'address', 'mobile', 'width', 'height', 'quantiy', 'file')
+        fields = ('location', 'address', 'width', 'height', 'quantiy', 'file')
         labels = {
             'location': 'Enter Country',
             'address': 'Enter Shipping Address',
-            'mobile': 'Enter Mobile Number',
             'width': 'Sticker Width (in)',
             'height': 'Sticker Height (in)',
             'quantiy': 'Quantity (no. of pcs)',

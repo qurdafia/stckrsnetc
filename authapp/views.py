@@ -137,7 +137,7 @@ def verified(request):
     return render(request, 'authapp/verified.html')
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff)
 def order_list(request):
 
     query = request.GET.get('q', '')
@@ -158,7 +158,7 @@ def order_list(request):
     return render(request, "authapp/orders.html", context)
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff)
 def order_detail(request, id):
     order_detail = OrderModel.objects.get(id=id)
     context = { 'order_detail': order_detail }
@@ -188,10 +188,10 @@ def order_edit(request, id):
     })
 
 
-
+@login_required
 def my_order_detail(request, id):
     if request.user:
-        
+
         my_order_detail = get_object_or_404(OrderModel, id=id, customer=request.user)
         context = { 'my_order_detail': my_order_detail }
 

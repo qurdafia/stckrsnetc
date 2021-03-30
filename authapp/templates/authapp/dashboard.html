@@ -5,7 +5,7 @@
 <div class="sticker-image">
   <img src="../media/ivan-bottigelli-sticker-bg.jpg" />
 </div>
-{% if request.user.is_superuser %}
+{% if request.user.is_staff %}
     <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">GO TO ORDERS >></a></span>
 {% else %}
 {% endif %}
