@@ -1,4 +1,5 @@
 asgiref==3.3.1
+authy==2.2.6
 beautifulsoup4==4.9.3
 cachetools==4.2.1
 certifi==2020.12.5
@@ -22,11 +23,13 @@ googleapis-common-protos==1.53.0
 gunicorn==20.1.0
 idna==2.10
 packaging==20.9
+phonenumbers==8.12.20
 Pillow==8.1.2
 protobuf==3.15.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
+PyJWT==1.7.1
 PyMySQL==1.0.2
 pyparsing==2.4.7
 pytz==2021.1
@@ -35,4 +38,5 @@ rsa==4.7.2
 six==1.15.0
 soupsieve==2.2.1
 sqlparse==0.4.1
+twilio==6.55.0
 urllib3==1.26.4

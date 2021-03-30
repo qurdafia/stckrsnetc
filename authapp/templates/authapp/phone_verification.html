@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="verify">
+  <p>&nbsp;</p>
+  <h2>Please verify your mobile number</h2>
+  <p>&nbsp;</p>
+  <form role="form" method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+    {{ form.phone_number.errors }}
+    {{ form.via.errors }}
+
+    <div class="row">
+      <input type="tel" id="intl_phone_number" class="form-control" />
+      {{ form.via }}
+      <input type="submit" value="Request Verification" class="btn btn-info btn-block">
+    </div>
+
+  </form>
+</div>
+
+<!-- MODAL -->
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hi, {{ user.first_name }}! <span style="color: red;">[MUST READ]</span></h4>
+        </div>
+        <div class="modal-body">
+          <p>We are very happy that you're here.</p>
+          <p>Your order request will be done via LBC Cash-on-Delivery option, and we are confident and fully trust on you.</p>
+          <p>Once you post your order, this will be processed automatically for fulfillment.
+            <strong>Enter the VERIFICATION TOKEN that will be sent out to your mobile number</strong> within 10mins.</p>
+          <p>To save time, make sure that you already have your graphic design ready, and the dimensions and quantity that you want.</p>
+          <p>We are recommending that you upload a high resolution image for your file.</p>
+          <p>Contact us via <a href="https://www.facebook.com/unrestphshop">Facebook</a> if you have any other queries.</p>
+          <p>Thank you.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- END MODAL -->
+
+<script>
+//* MODAL SCRIPT
+$(window).on('load', function() {
+  $('#myModal').modal('show');
+});
+</script>
+
+<script>
+  const phoneInputField = document.querySelector("#intl_phone_number");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    separateDialCode: true,
+    hiddenInput: "phone_number",
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/utils.js"
+  });
+</script>
+{% endblock %}

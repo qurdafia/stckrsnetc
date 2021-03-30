@@ -39,6 +39,12 @@ STATIC_URL = '/static/'
 
 SECRET_KEY = env('SECRET_KEY')
 
+#Twilio
+ACCOUNT_SECURITY_API_KEY = env('ACCOUNT_SECURITY_API_KEY')
+TWILIO_ACCOUNT_SID = env('TWILIO_ACCOUNT_SID')
+TWILIO_VERIFICATION_SID = env('TWILIO_VERIFICATION_SID')
+TWILIO_AUTH_TOKEN = env('TWILIO_AUTH_TOKEN')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -117,11 +123,11 @@ if os.getenv('GAE_APPLICATION', None):
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/master-magnet-309002:asia-southeast1:stckrsnetcdb',
-            'USER': 'mormash',
-            'PASSWORD': '23Responder23',
-            'NAME': 'stckrsnetcdb',
+            'ENGINE': env('ENGINE'),
+            'HOST': env('HOST'),
+            'USER': env('USER'),
+            'PASSWORD': env('PASSWORD'),
+            'NAME': env('NAME'),
         }
     }
 else:
@@ -133,12 +139,12 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': 'stckrsnetcdb',
-            'USER': 'mormash',
-            'PASSWORD': '23Responder23',
+            'ENGINE': env('ENGINE_LOC'),
+            'HOST': env('HOST_LOC'),
+            'PORT': env('PORT_LOC'),
+            'NAME': env('NAME_LOC'),
+            'USER': env('USER_LOC'),
+            'PASSWORD': env('PASSWORD_LOC'),
         }
     }
 

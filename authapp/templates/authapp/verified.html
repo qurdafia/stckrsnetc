@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="verify">
+  <p>&nbsp;</p>
+  <h2 style="text-align: center;">Congratulations. You have verified your order!</h2>
+  <p>&nbsp;</p>
+  <p style="text-align: center;">
+    <a href="{% url 'authapp:dashboard' %}" class="btn btn-primary" id="order-sticker">CLICK TO DASHBOARD</a>
+  </p>
+</div>
+
+{% endblock %}
