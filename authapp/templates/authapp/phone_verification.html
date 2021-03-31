@@ -17,6 +17,11 @@
       {{ form.via }}
       <input type="submit" value="Request Verification" class="btn btn-info btn-block">
     </div>
+    <div class="row" style="margin-top: 10px;">
+      <p style="padding:0;">I consent:
+      <input style="width: 30px; height: 12px;" type="checkbox" id="opt_in" name="opt_in" value="" onclick="enablePhone()">
+      </p>
+    </div>
 
   </form>
 </div>
@@ -30,20 +35,24 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Hi, {{ user.first_name }}! <span style="color: red;">[MUST READ]</span></h4>
+          <h4 class="modal-title">Hi, {{ user.first_name }}!</h4>
+          <span style="color: red;">[MUST READ]</span>
         </div>
         <div class="modal-body">
           <p>We are very happy that you're here.</p>
-          <p>Your order request will be done via LBC Cash-on-Delivery option, and we are confident and fully trust on you.</p>
-          <p>Once you post your order, this will be processed automatically for fulfillment.
-            <strong>Enter the VERIFICATION TOKEN that will be sent out to your mobile number</strong> within 10mins.</p>
-          <p>To save time, make sure that you already have your graphic design ready, and the dimensions and quantity that you want.</p>
-          <p>We are recommending that you upload a high resolution image for your file.</p>
+          <p>As your order request will be fulfilled via LBC Cash-on-Delivery option, we are committed to trust our customers.</p>
+          <p><strong>POLICY AGREEMENT</strong></p>
+          <p>By entering your mobile number, you agree and consent that you will be recieving an SMS message from us. Your SMS opt-in will
+            only be used within this speficic transaction
+            <strong>Don't forget to enter the VERIFICATION TOKEN that will be sent out to your mobile number</strong> later.</p>
+          <p>Once you post your order, it will be processed automatically.</p>
+          <p>To save time, make sure that you have your graphic design file ready, the dimensions (in inches), and the quantity that you want.</p>
+          <p>We recommend that you upload a high resolution image of your file to achieve a better quality printout.</p>
           <p>Contact us via <a href="https://www.facebook.com/unrestphshop">Facebook</a> if you have any other queries.</p>
           <p>Thank you.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">I Agree</button>
         </div>
       </div>
 
@@ -65,5 +74,17 @@ $(window).on('load', function() {
     hiddenInput: "phone_number",
     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/utils.js"
   });
+
+  function enablePhone() {
+    x = document.getElementById('intl_phone_number');
+    x.disabled = true;
+    y = document.getElementById('opt_in');
+    if (y.checked == true) {
+        x.disabled = false;
+    }
+  }
+
+  enablePhone();
+
 </script>
 {% endblock %}

@@ -36,13 +36,11 @@ class UserEditForm(forms.ModelForm):
 class VerificationForm(forms.Form):
     # country_code = forms.CharField(widget=forms.HiddenInput())
     phone_number = forms.CharField(widget=forms.HiddenInput())
-    via = forms.ChoiceField(choices=[('sms', 'SMS')], initial='SMS')
+    via = forms.ChoiceField(choices=[('sms', 'SMS')], initial='SMS')  
 
     def clean(self):
         data = self.cleaned_data
-        # country_code = data['country_code']
         phone_number = data['phone_number']
-        # comb = country_code + phone_number
 
         try:
             phone_number = phonenumbers.parse(phone_number, None)
