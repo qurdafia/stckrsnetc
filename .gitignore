@@ -86,6 +86,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+/stckrsnetcproj/src/master-magnet-309002-08264ddb8fea.json
 
 # mypy
 .mypy_cache/
