@@ -13,7 +13,13 @@ class UserRegistrationModel(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
-MATERIALS = [("sticker", "STICKER"),]
+MATERIALS = [
+    ("sticker regular", "STICKER REGULAR"),
+    ("sticker die cut", "STICKER DIE CUT"),
+    ("transparent", "TRANSPARENT"),
+    ("transparent die cut", "TRANSPARENT DIE CUT"),
+]
+
 COUNTRIES = [("PH", "Philippines"),]
 
 def validate_image(image):
@@ -24,7 +30,7 @@ def validate_image(image):
 
 
 class OrderModel(models.Model):
-    material = models.CharField(max_length=200, choices=MATERIALS, default="sticker")
+    material = models.CharField(max_length=200, choices=MATERIALS, default="sticker regular")
     customer = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=200,choices=COUNTRIES, default="PH")
     address = models.CharField(max_length=500, blank=False)
