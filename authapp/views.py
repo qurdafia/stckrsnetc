@@ -108,6 +108,7 @@ def order(request):
         width = form_data.get("width")
         height = form_data.get("height")
         quantiy = form_data.get("quantiy")
+        material = form_data.get("material")
         total_price = form_data.get("total_price")
         form = OrderModelForm(initial={
             "location":location,
@@ -117,6 +118,7 @@ def order(request):
             "width":width,
             "height":height,
             "quantiy":quantiy,
+            "material":material,
             "total_price":total_price
         })  # initialize the form with the data
 
@@ -134,14 +136,49 @@ def order(request):
             if verification.ok():
                 request.session['is_verified'] = True
                 order = form.save(commit=True)
+
                 area = order.width * order.height
                 area_feet = Decimal(area)/Decimal(144)
-                order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
-                order.mobile = request.session['phone_number']
-                order.customer = request.user
-                order.save()
 
-                return redirect('/verified')
+                if order.material == "sticker regular":
+                    order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(110) + Decimal(150), 2)
+                    order.mobile = request.session['phone_number']
+                    order.customer = request.user
+                    order.save()
+
+                    return redirect('/verified')
+
+                elif order.material == "sticker die cut":
+                    order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
+                    order.mobile = request.session['phone_number']
+                    order.customer = request.user
+                    order.save()
+
+                    return redirect('/verified')
+
+                elif order.material == "transparent":
+                    order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
+                    order.mobile = request.session['phone_number']
+                    order.customer = request.user
+                    order.save()
+
+                    return redirect('/verified')
+
+                elif order.material == "transparent die cut":
+                    order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(130) + Decimal(150), 2)
+                    order.mobile = request.session['phone_number']
+                    order.customer = request.user
+                    order.save()
+
+                    return redirect('/verified')
+
+                # print(order.material)
+                #
+                # order.mobile = request.session['phone_number']
+                # order.customer = request.user
+                # order.save()
+                #
+                # return redirect('/verified')
             else:
                 for error_msg in verification.errors().values():
                     form.add_error(None, error_msg)

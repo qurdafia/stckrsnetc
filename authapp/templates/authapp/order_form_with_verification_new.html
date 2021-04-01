@@ -112,10 +112,26 @@
     let width = document.getElementById('id_width').value;
     let height = document.getElementById('id_height').value;
     let quantiy = document.getElementById('id_quantiy').value;
+    let material = document.getElementById("id_material");
     let area = width * height / 144;
-    let total = area * 120 * quantiy + 150;
-    console.log(total);
-    document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+    if (material.value == "sticker regular") {
+      let total = area * 110 * quantiy + 150;
+      console.log(total);
+      document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+    } else if (material.value == "sticker die cut") {
+        let total = area * 120 * quantiy + 150;
+        console.log(total);
+        document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+    } else if (material.value == "transparent") {
+        let total = area * 120 * quantiy + 150;
+        console.log(total);
+        document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+    } else if (material.value == "transparent die cut") {
+      let total = area * 130 * quantiy + 150;
+      console.log(total);
+      document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
+    }
+
   }
   updateVal();
   </script>

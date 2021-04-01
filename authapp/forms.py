@@ -39,8 +39,9 @@ class VerificationTokenForm(forms.ModelForm):
 
     class Meta:
         model = OrderModel
-        fields = ('location', 'address', 'city', 'zip_code', 'width', 'height', 'quantiy')
+        fields = ('material', 'location', 'address', 'city', 'zip_code', 'width', 'height', 'quantiy')
         labels = {
+            'material': 'Sticker Type',
             'location': 'Country',
             'address': 'Enter Shipping Address',
             'city': 'Enter City/Municipality',
@@ -85,7 +86,7 @@ class OrderModelForm(forms.ModelForm):
 
     class Meta:
         model = OrderModel
-        fields = ('address', 'city', 'zip_code', 'width', 'height', 'quantiy', 'file',)
+        fields = ('material', 'address', 'city', 'zip_code', 'width', 'height', 'quantiy', 'file',)
         labels = {
             'file': 'Upload Your File (pdf)'
         }
