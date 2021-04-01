@@ -133,7 +133,6 @@ def order(request):
 
             if verification.ok():
                 request.session['is_verified'] = True
-
                 order = form.save(commit=True)
                 area = order.width * order.height
                 area_feet = Decimal(area)/Decimal(144)
@@ -147,7 +146,7 @@ def order(request):
                 for error_msg in verification.errors().values():
                     form.add_error(None, error_msg)
 
-    
+
     return render(request, 'authapp/order_form.html', {
         'form': form
     })
@@ -169,7 +168,7 @@ def phone_verification(request):
                 phone_number=form.cleaned_data['phone_number'],
                 via = form.cleaned_data['via']
             )
-            return redirect('/order')
+            return redirect('/dashboard')
     else:
         form = VerificationForm()
     return render(request, 'authapp/phone_verification.html', {'form': form})

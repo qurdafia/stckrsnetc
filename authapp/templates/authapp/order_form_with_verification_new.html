@@ -86,10 +86,10 @@
           </div>
           <div class="modal-body">
             <p>We are very happy that you're here.</p>
-            <p>As order request will be fulfilled via LBC Cash-on-Delivery option, we are committed to trust in you.</p>
+            <p>As this order request will be fulfilled via LBC's Cash on Delivery service, we are committed to trust in you.</p>
             <p><strong>POLICY AGREEMENT</strong></p>
             <p>By entering your mobile number, you agree and consent that you will be recieving an SMS message from us. Your SMS opt-in will
-              only be used within this speficic transaction
+              only be used within this speficic transaction.
               <strong>Don't forget to enter the VERIFICATION TOKEN that will be sent out to your mobile number</strong> later.</p>
             <p>Once order is posted, it will be processed automatically.</p>
             <p>To save time, make sure that you have your graphic design file ready, the dimensions (in inches), and the quantity that you want.</p>
@@ -129,6 +129,7 @@
   <script>
     const phoneInputField = document.querySelector("#intl_phone_number");
     const phoneInput = window.intlTelInput(phoneInputField, {
+      initialCountry: "PH",
       separateDialCode: true,
       hiddenInput: "phone_number",
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/utils.js"

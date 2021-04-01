@@ -41,7 +41,7 @@ class VerificationTokenForm(forms.ModelForm):
         model = OrderModel
         fields = ('location', 'address', 'city', 'zip_code', 'width', 'height', 'quantiy')
         labels = {
-            'location': 'Enter Country',
+            'location': 'Country',
             'address': 'Enter Shipping Address',
             'city': 'Enter City/Municipality',
             'zip_code': 'Enter Zip Code',

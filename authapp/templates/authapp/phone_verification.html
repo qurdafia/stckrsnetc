@@ -29,6 +29,7 @@
 <script>
   const phoneInputField = document.querySelector("#intl_phone_number");
   const phoneInput = window.intlTelInput(phoneInputField, {
+    initialCountry: "PH",
     separateDialCode: true,
     hiddenInput: "phone_number",
     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/utils.js"
