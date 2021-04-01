@@ -86,6 +86,8 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+#testing if ok
 master-magnet-309002-08264ddb8fea.json
 
 # mypy
