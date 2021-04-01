@@ -28,6 +28,8 @@ class OrderModel(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=200,choices=COUNTRIES, default="PH")
     address = models.CharField(max_length=500, blank=False)
+    city = models.CharField(default="", max_length=200, blank=False)
+    zip_code = models.CharField(default="", max_length=4, blank=False)
     mobile = models.CharField(max_length=50, blank=True)
     width = models.PositiveIntegerField(blank=False, default=0)
     height = models.PositiveIntegerField(blank=False, default=0)

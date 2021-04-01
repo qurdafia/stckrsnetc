@@ -11,7 +11,8 @@
       Order ID: <strong> {{ order.id }}</strong><br />
       Customer: <strong>{{ order.customer.first_name }} {{ order.customer.last_name }}</strong><br />
       Mobile Number: <strong>{{ order.mobile }}</strong><br />
-      Address: {{ order.address }}, {{ order.location }}<br />
+      Address: {{ order.address }}, {{ order.city }}, {{ order.location }}<br />
+      Zip Code: {{ order.zip_code }}<br />
       Product: <span style="text-transform: capitalize;">{{ order.material }}</span><br />
       Size: {{ order.width }} x {{ order.height }} square inches<br />
       Quantity: {{ order.quantiy }} pc(s)

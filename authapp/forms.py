@@ -33,10 +33,38 @@ class UserEditForm(forms.ModelForm):
 
 #Twilio forms
 
-class VerificationForm(forms.Form):
-    # country_code = forms.CharField(widget=forms.HiddenInput())
+class VerificationTokenForm(forms.ModelForm):
     phone_number = forms.CharField(widget=forms.HiddenInput())
-    via = forms.ChoiceField(choices=[('sms', 'SMS')], initial='SMS')  
+    via = forms.ChoiceField(choices=[('sms', 'SMS')], initial='SMS')
+
+    class Meta:
+        model = OrderModel
+        fields = ('location', 'address', 'city', 'zip_code', 'width', 'height', 'quantiy')
+        labels = {
+            'location': 'Enter Country',
+            'address': 'Enter Shipping Address',
+            'city': 'Enter City/Municipality',
+            'zip_code': 'Enter Zip Code',
+            'width': 'Sticker Width (in)',
+            'height': 'Sticker Height (in)',
+            'quantiy': 'Quantity (no. of pcs)',
+        }
+
+    def clean(self):
+        data = self.cleaned_data
+        phone_number = data['phone_number']
+
+        try:
+            phone_number = phonenumbers.parse(phone_number, None)
+            if not phonenumbers.is_valid_number(phone_number):
+                self.add_error('phone_number', 'Invalid phone number')
+        except NumberParseException as e:
+            self.add_error('phone_number', e)
+
+
+class VerificationForm(forms.Form):
+    phone_number = forms.CharField(widget=forms.HiddenInput())
+    via = forms.ChoiceField(choices=[('sms', 'SMS')], initial='SMS')
 
     def clean(self):
         data = self.cleaned_data
@@ -57,13 +85,8 @@ class OrderModelForm(forms.ModelForm):
 
     class Meta:
         model = OrderModel
-        fields = ('location', 'address', 'width', 'height', 'quantiy', 'file')
+        fields = ('address', 'city', 'zip_code', 'width', 'height', 'quantiy', 'file',)
         labels = {
-            'location': 'Enter Country',
-            'address': 'Enter Shipping Address',
-            'width': 'Sticker Width (in)',
-            'height': 'Sticker Height (in)',
-            'quantiy': 'Quantity (no. of pcs)',
             'file': 'Upload Your File (pdf)'
         }
 

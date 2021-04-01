@@ -1,7 +1,7 @@
 from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistration, UserEditForm, OrderModelForm, OrderModelFormEdit, VerificationForm
+from .forms import UserRegistration, UserEditForm, OrderModelForm, OrderModelFormEdit, VerificationForm, VerificationTokenForm
 from decimal import Decimal
 from fractions import *
 from .models import OrderModel
@@ -71,6 +71,88 @@ def edit(request):
     return render(request, 'authapp/edit.html', context=context)
 
 
+
+# twilio test
+@login_required
+def phone_verification_test(request):
+    if request.method == 'POST':
+        form = VerificationTokenForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            request.session['phone_number'] = form.cleaned_data['phone_number']
+            country_code = request.session['phone_number'][:3]
+            print(country_code)
+
+            authy_api.phones.verification_start(
+                country_code=country_code,
+                phone_number=form.cleaned_data['phone_number'],
+                via = form.cleaned_data['via']
+            )
+            request.session['verify_form'] = request.POST.dict()
+            return redirect('/order')
+
+    else:
+        form = VerificationTokenForm()
+
+    return render(request, 'authapp/order_form_with_verification_new.html', { 'form': form })
+
+
+@login_required
+def order(request):
+    if request.method == 'GET':
+        form_data = request.session.pop('verify_form', {})
+        location = form_data.get("location")
+        address = form_data.get("address")
+        city = form_data.get("city")
+        zip_code = form_data.get("zip_code")
+        width = form_data.get("width")
+        height = form_data.get("height")
+        quantiy = form_data.get("quantiy")
+        total_price = form_data.get("total_price")
+        form = OrderModelForm(initial={
+            "location":location,
+            "address":address ,
+            "city":city,
+            "zip_code":zip_code,
+            "width":width,
+            "height":height,
+            "quantiy":quantiy,
+            "total_price":total_price
+        })  # initialize the form with the data
+
+    else:
+        form = OrderModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            country_code = request.session['phone_number'][:3]
+            print(country_code)
+            verification = authy_api.phones.verification_check(
+                request.session['phone_number'],
+                country_code,
+                form.cleaned_data['token']
+            )
+
+            if verification.ok():
+                request.session['is_verified'] = True
+
+                order = form.save(commit=True)
+                area = order.width * order.height
+                area_feet = Decimal(area)/Decimal(144)
+                order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
+                order.mobile = request.session['phone_number']
+                order.customer = request.user
+                order.save()
+
+                return redirect('/verified')
+            else:
+                for error_msg in verification.errors().values():
+                    form.add_error(None, error_msg)
+
+    
+    return render(request, 'authapp/order_form.html', {
+        'form': form
+    })
+
+
 # twilio
 @login_required
 def phone_verification(request):
@@ -92,43 +174,6 @@ def phone_verification(request):
         form = VerificationForm()
     return render(request, 'authapp/phone_verification.html', {'form': form})
 
-
-@login_required
-def order(request):
-
-    if request.method == 'POST':
-        form = OrderModelForm(request.POST, request.FILES)
-        if form.is_valid():
-            country_code = request.session['phone_number'][:3]
-            print(country_code)
-            verification = authy_api.phones.verification_check(
-                request.session['phone_number'],
-                country_code,
-                form.cleaned_data['token']
-            )
-
-            if verification.ok():
-                request.session['is_verified'] = True
-
-                order = form.save(commit=True)
-                area = order.width * order.height
-                area_feet = Decimal(area)/Decimal(144)
-                order.total_price = round(Decimal(area_feet) * Decimal(order.quantiy) * Decimal(120) + Decimal(150), 2)
-                order.mobile = request.session['phone_number']
-                order.customer = request.user
-                order.save()
-                form = OrderModelForm()
-
-                return redirect('/verified')
-            else:
-                for error_msg in verification.errors().values():
-                    form.add_error(None, error_msg)
-
-    else:
-        form = OrderModelForm()
-    return render(request, 'authapp/order_form.html', {
-        'form': form
-    })
 
 @login_required
 def verified(request):

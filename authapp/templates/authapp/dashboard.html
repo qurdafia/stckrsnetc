@@ -5,8 +5,12 @@
 <div class="sticker-image">
   <img src="../media/ivan-bottigelli-sticker-bg.jpg" />
 </div>
+{% if request.user.is_superuser %}
+  <span style="font-size: 10px;"><a href="/admin">ADMIN >></a></span>
+{% else %}
+{% endif %}
 {% if request.user.is_staff %}
-    <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">GO TO ORDERS >></a></span>
+  <span style="font-size: 10px;"><a href="{% url 'authapp:order_list' %}">GO TO ORDERS >> </a></span>
 {% else %}
 {% endif %}
 <h2>Good day, {{ user.first_name }}!</h2>
@@ -16,7 +20,7 @@
   Username: {{ user }}<br>
   Email: {{ user.email }}
 </p>
-<a href="{% url 'authapp:phone_verification' %}" class="btn btn-primary" id="order-sticker">Order Stickers</a>
+<a href="{% url 'authapp:phone_verification_test' %}" class="btn btn-primary" id="order-sticker">Order Stickers</a>
 <a href="{% url 'authapp:edit' %}" class="btn btn-primary">Edit Profile</a>
 <a href="{% url 'authapp:password_change' %}" class="btn btn-warning">Change Password</a>
 <p style="clear: left;">&nbsp;</p>

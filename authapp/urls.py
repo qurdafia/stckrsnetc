@@ -15,6 +15,7 @@ urlpatterns = [
     path('verification/', views.phone_verification, name='phone_verification'),
     path('verified/', views.verified, name='verified'),
     path('order/', views.order, name='order'),
+    path('order_new/', views.phone_verification_test, name='phone_verification_test'),
     path('order_edit/<id>', views.order_edit, name='order_edit'),
     path('orders/', views.order_list, name='order_list'),
     path('order_detail/<id>', views.order_detail, name='order_detail'),
