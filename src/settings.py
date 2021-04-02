@@ -104,50 +104,61 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # DB local settings
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASEPATH / 'db.sqlite3'),
+    }
+}
+
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': str(BASEPATH / 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'mormash$stckrsnetc',
+#         'USER': 'mormash',
+#         'PASSWORD': env('PASSWORD_PA_DB'),
+#         'HOST': 'mormash.mysql.pythonanywhere-services.com',  # Or an IP Address that your DB is hosted on
+#         'PORT': '',
+#         'OPTIONS': {
+#           'autocommit': True,
+#         },
 #     }
 # }
 
 
+
 # For Google App ENGINE
-import pymysql  # noqa: 402
-pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
-pymysql.install_as_MySQLdb()
-
-
-if os.getenv('GAE_APPLICATION', None):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    DATABASES = {
-        'default': {
-            'ENGINE': env('ENGINE'),
-            'HOST': env('HOST'),
-            'USER': env('USER'),
-            'PASSWORD': env('PASSWORD'),
-            'NAME': env('NAME'),
-        }
-    }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': env('ENGINE_LOC'),
-            'HOST': env('HOST_LOC'),
-            'PORT': env('PORT_LOC'),
-            'NAME': env('NAME_LOC'),
-            'USER': env('USER_LOC'),
-            'PASSWORD': env('PASSWORD_LOC'),
-        }
-    }
-
+# Production DB
+# import pymysql  # noqa: 402
+# pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
+# pymysql.install_as_MySQLdb()
+#
+#
+# if os.getenv('GAE_APPLICATION', None):
+#
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': env('ENGINE'),
+#             'HOST': env('HOST'),
+#             'USER': env('USER'),
+#             'PASSWORD': env('PASSWORD'),
+#             'NAME': env('NAME'),
+#         }
+#     }
+# else:
+#
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': env('ENGINE_LOC'),
+#             'HOST': env('HOST_LOC'),
+#             'PORT': env('PORT_LOC'),
+#             'NAME': env('NAME_LOC'),
+#             'USER': env('USER_LOC'),
+#             'PASSWORD': env('PASSWORD_LOC'),
+#         }
+#     }
+#End Production DB
 
 # Local DB Sqlite3
 # DATABASES = {
