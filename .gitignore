@@ -89,6 +89,7 @@ venv.bak/
 
 #testing if ok
 master-magnet-309002-08264ddb8fea.json
+settings.py
 
 # mypy
 .mypy_cache/
