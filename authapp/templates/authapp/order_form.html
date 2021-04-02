@@ -55,10 +55,10 @@
     {% endfor %}
     <span style="font-size: 10px;"><a target="_blank" href="{% url 'authapp:phone_verification' %}">VERIFY MOBILE NUMBER AGAIN IF NECESSARY</a></span>
     <p>&nbsp;</p>
-    <div class="total_box">
+    <!-- <div class="total_box">
       <p style="line-height: 1;">
         <br>
-        Total Price: <strong>PHP <span id="id_new_total">{{ order.total_price }}</span></strong><br><br />
+        Total Price: <strong>PHP <span id="id_new_total">{{ total_price }}</span></strong><br><br />
         <span style="font-size: 10px; font-style: italic;">
           Pricing Note:<br />
           Standard shipping fee is PHP 150.00<br />
@@ -68,7 +68,7 @@
           Die cut transparent sitcker is PHP 130.00 psf
         </span>
       </p>
-    </div>
+    </div> -->
     <button type="submit" class="btn btn-primary">Post Order</button>
   </form>
 

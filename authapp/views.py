@@ -172,17 +172,9 @@ def order(request):
 
                     return redirect('/verified')
 
-                # print(order.material)
-                #
-                # order.mobile = request.session['phone_number']
-                # order.customer = request.user
-                # order.save()
-                #
-                # return redirect('/verified')
             else:
                 for error_msg in verification.errors().values():
                     form.add_error(None, error_msg)
-
 
     return render(request, 'authapp/order_form.html', {
         'form': form
