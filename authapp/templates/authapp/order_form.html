@@ -58,7 +58,7 @@
     <div class="total_box">
       <p style="line-height: 1;">
         <br>
-        Total Price: <strong>PHP <span id="id_new_total"></span></strong><br><br />
+        Total Price: <strong>PHP <span id="id_new_total">{{ order.total_price }}</span></strong><br><br />
         <span style="font-size: 10px; font-style: italic;">
           Pricing Note:<br />
           Standard shipping fee is PHP 150.00<br />
@@ -75,17 +75,4 @@
   <p>&nbsp;</p>
 
   </div>
-
-  <script>
-  function updateVal() {
-    let width = document.getElementById('id_width').value;
-    let height = document.getElementById('id_height').value;
-    let quantiy = document.getElementById('id_quantiy').value;
-    let area = width * height / 144;
-    let total = area * 120 * quantiy + 150;
-    console.log(total);
-    document.getElementById('id_new_total').innerHTML = Math.round((total + Number.EPSILON) * 100)/100;
-  }
-  updateVal();
-  </script>
 {% endblock %}
