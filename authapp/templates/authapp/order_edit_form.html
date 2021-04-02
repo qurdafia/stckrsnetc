@@ -55,12 +55,8 @@
       </div>
     {% endfor %}
     <div class="total_box">
-      <p>
-        <br>
-        Total Price: <strong>PHP <span id="id_new_total">{{ order.total_price }}</span></strong><br>
-        <span style="font-size: 10px; font-style: italic;">
-          Note: Price per square foot is PHP 120.00 and shipping fee is PHP 150.00. This will be shipped via Cash-on-Delivery option with LBC.
-        </span>
+      <p style="margin: 0;">
+        Total Price: <strong>PHP <span id="id_new_total">{{ order.total_price }}</span></strong>
       </p>
     </div>
     <button type="submit" class="btn btn-primary">Update Order</button>

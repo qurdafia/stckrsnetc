@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.core.validators import MinValueValidator
 
 from phone_field import PhoneField
 from django.core.exceptions import ValidationError
@@ -37,9 +38,9 @@ class OrderModel(models.Model):
     city = models.CharField(default="", max_length=200, blank=False)
     zip_code = models.CharField(default="", max_length=4, blank=False)
     mobile = models.CharField(max_length=50, blank=True)
-    width = models.PositiveIntegerField(blank=False, default=0)
-    height = models.PositiveIntegerField(blank=False, default=0)
-    quantiy = models.PositiveIntegerField(blank=False, default=0)
+    width = models.PositiveIntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
+    height = models.PositiveIntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
+    quantiy = models.PositiveIntegerField(blank=False, default=0, validators=[MinValueValidator(0)])
     order_date = models.DateTimeField(default=datetime.now, blank=True)
     file = models.ImageField("Image", upload_to="documents/%Y/%m/%d/", validators=[validate_image], default="", blank=True)
     total_price = models.DecimalField(default=0.0, blank=True, null=True, max_digits=20, decimal_places=10)
